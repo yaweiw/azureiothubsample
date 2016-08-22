@@ -1,0 +1,70 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "windows": {
+        "command": "<WINDOWS_ARDUINO>"
+        },
+    "linux": {
+        "command": "<LINUX_ARDUINO>"
+        },
+    "osx": {
+        "command": "<OSX_ARDUINO>"
+        },
+    "isShellCommand": true,
+    "showOutput": "always",
+    "echoCommand": true,
+        "tasks": [
+        {
+         "suppressTaskName": true,
+         "taskName": "Verify",
+         "isBuildCommand": true,
+         "args":[ 
+             "--verify",
+             "--board",
+             "\"<BOARD>\"",
+             "\"${file}\"",
+             "--verbose-build"],
+         "problemMatcher": 
+         {
+             "owner":"ino",
+             "fileLocation": ["relative", "${workspaceRoot}"],
+             "pattern":
+             {
+             "regexp": "^(.*):(\\d+):\\s+(warning|error):\\s+(.*)$",
+             "file": 1,
+             "line": 2,
+             "column": 3,
+             "severity": 4,
+             "message": 5
+             }
+         }
+        },
+        {
+         "suppressTaskName": true,
+         "taskName": "Upload",
+         "args":[
+             "--upload",
+             "--board",
+             "\"<BOARD>\"",
+             "--port",
+             "<PORT>",
+             "\"${file}\"",
+             "--verbose-upload"],
+         "problemMatcher": 
+         {
+             "owner":"ino",
+             "fileLocation": ["relative", "${workspaceRoot}"],
+             "pattern":
+             {
+             "regexp": "^(.*):(\\d+):\\s+(warning|error):\\s+(.*)$",
+             "file": 1,
+             "line": 2,
+             "column": 3,
+             "severity": 4,
+             "message": 5
+             }
+         }
+        }
+    ]
+}

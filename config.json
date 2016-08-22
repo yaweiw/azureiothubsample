@@ -1,0 +1,11 @@
+{
+    "iothub": "HostName=[IotHubName.azure-devices.net];DeviceId=[DeviceId];SharedAccessKey=[SharedAccessKey]",
+    "os": "[client OS]",
+    "arduino": "[arduino_debug path]",
+    "board": "[package:architecture:board]", 
+    "port": "[COM port]",
+    "ssid": "[WIFI ssid]",
+    "psw": "[WIFI password]",
+    "is_psw_needed": "[WIFI need password]"
+}
+

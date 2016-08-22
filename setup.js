@@ -41,17 +41,19 @@ fs.readFile(configPath, 'utf8', function (err, data) {
         // get DeviceID
         var pattern = new RegExp("DeviceId=\\w+");
         var arrMatches = constr.match(pattern);
-        var deviceid = arrMatches[0].replace(/DeviceId=/, "");
+        var deviceid = arrMatches[0].replace(/DeviceId=/g, "");
         replaceStringInFileSync(blinkrunPath, "<CONNECTIONSTRING>", constr);
         replaceStringInFileSync(blinkrunPath, "<DEVICEID>", deviceid);
+        
+        var arduinoPath = obj.arduino.replace(/\\/g, "\\\\");
 
         // replace placeholders in filetasks.json
         if (obj.os == "windows") {
-            replaceStringInFileSync(tasksPath, "<WINDOWS_ARDUINO>", obj.arduino);
+            replaceStringInFileSync(tasksPath, "<WINDOWS_ARDUINO>", arduinoPath);
         } else if (obj.os == "linux") {
-            replaceStringInFileSync(tasksPath, "<LINUX_ARDUINO>", obj.arduino);
+            replaceStringInFileSync(tasksPath, "<LINUX_ARDUINO>", arduinoPath);
         } else {
-            replaceStringInFileSync(tasksPath, "<OSX_ARDUINO>", obj.arduino);
+            replaceStringInFileSync(tasksPath, "<OSX_ARDUINO>", arduinoPath);
         }
         replaceStringInFileSync(tasksPath, "<BOARD>", obj.board);
         replaceStringInFileSync(tasksPath, "<PORT>", obj.port);

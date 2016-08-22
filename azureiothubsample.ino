@@ -58,7 +58,7 @@ void initWifi() {
     Serial.println(ssid);
     #ifdef PSW_NEEDED
     status = WiFi.begin(ssid, psw);
-    #elif
+    #else
     status = WiFi.begin(ssid);
     #endif
     // wait 10 seconds for connection:

@@ -28,12 +28,12 @@ fs.readFile(configPath, 'utf8', function (err, data) {
         
         // replace placeholders in .ino file
         if (obj.is_psw_needed == "true") {
-            replaceStringInFileSync(blinkinoPath, "<PSW_NEEDED>", "#define PSW_NEEDED");
-            replaceStringInFileSync(blinkinoPath, "<PSW>", obj.psw)
+            replaceStringInFileSync(blinkinoPath, /<PSW_NEEDED>/g, "#define PSW_NEEDED");
+            replaceStringInFileSync(blinkinoPath, /<PSW>/g, obj.psw)
         } else {
-            replaceStringInFileSync(blinkinoPath, "<PSW_NEEDED>", "")
+            replaceStringInFileSync(blinkinoPath, /<PSW_NEEDED>/g, "")
         }
-        replaceStringInFileSync(blinkinoPath, "<SSID>", obj.ssid)
+        replaceStringInFileSync(blinkinoPath, /<SSID>/g, obj.ssid)
 
         // replace placeholders in .c file
         // get iothub constr
@@ -42,21 +42,21 @@ fs.readFile(configPath, 'utf8', function (err, data) {
         var pattern = new RegExp("DeviceId=\\w+");
         var arrMatches = constr.match(pattern);
         var deviceid = arrMatches[0].replace(/DeviceId=/g, "");
-        replaceStringInFileSync(blinkrunPath, "<CONNECTIONSTRING>", constr);
-        replaceStringInFileSync(blinkrunPath, "<DEVICEID>", deviceid);
+        replaceStringInFileSync(blinkrunPath, /<CONNECTIONSTRING>/g, constr);
+        replaceStringInFileSync(blinkrunPath, /<DEVICEID>/g, deviceid);
         
         var arduinoPath = obj.arduino.replace(/\\/g, "\\\\");
 
         // replace placeholders in filetasks.json
         if (obj.os == "windows") {
-            replaceStringInFileSync(tasksPath, "<WINDOWS_ARDUINO>", arduinoPath);
+            replaceStringInFileSync(tasksPath, /<WINDOWS_ARDUINO>/g, arduinoPath);
         } else if (obj.os == "linux") {
-            replaceStringInFileSync(tasksPath, "<LINUX_ARDUINO>", arduinoPath);
+            replaceStringInFileSync(tasksPath, /<LINUX_ARDUINO>/g, arduinoPath);
         } else {
-            replaceStringInFileSync(tasksPath, "<OSX_ARDUINO>", arduinoPath);
+            replaceStringInFileSync(tasksPath, /<OSX_ARDUINO>/g, arduinoPath);
         }
-        replaceStringInFileSync(tasksPath, "<BOARD>", obj.board);
-        replaceStringInFileSync(tasksPath, "<PORT>", obj.port);
+        replaceStringInFileSync(tasksPath, /<BOARD>/g, obj.board);
+        replaceStringInFileSync(tasksPath, /<PORT>/g, obj.port);
     }
 });
 

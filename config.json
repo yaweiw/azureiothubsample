@@ -4,6 +4,7 @@
     "arduino": "[arduino_debug path]",
     "board": "[package:architecture:board]", 
     "port": "[COM port]",
+    "speed": "[baud rate]",
     "ssid": "[WIFI ssid]",
     "psw": "[WIFI password]",
     "is_psw_needed": "[WIFI need password]"

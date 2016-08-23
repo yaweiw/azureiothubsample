@@ -25,7 +25,7 @@ fs.readFile(configPath, 'utf8', function (err, data) {
         console.error(err);
     } else {
         var obj = JSON.parse(data);
-        
+
         // replace placeholders in .ino file
         if (obj.is_psw_needed == "true") {
             replaceStringInFileSync(blinkinoPath, /<PSW_NEEDED>/g, "#define PSW_NEEDED");
@@ -44,19 +44,19 @@ fs.readFile(configPath, 'utf8', function (err, data) {
         var deviceid = arrMatches[0].replace(/DeviceId=/g, "");
         replaceStringInFileSync(blinkrunPath, /<CONNECTIONSTRING>/g, constr);
         replaceStringInFileSync(blinkrunPath, /<DEVICEID>/g, deviceid);
-        
-        var arduinoPath = obj.arduino.replace(/\\/g, "\\\\");
 
         // replace placeholders in filetasks.json
         if (obj.os == "windows") {
-            replaceStringInFileSync(tasksPath, /<WINDOWS_ARDUINO>/g, arduinoPath);
+            var arduinoPath = obj.arduino.replace(/\\/g, "\\\\");
+            replaceStringInFileSync(tasksPath, /<ARDUINO_DEBUG>/g, arduinoPath);
         } else if (obj.os == "linux") {
-            replaceStringInFileSync(tasksPath, /<LINUX_ARDUINO>/g, arduinoPath);
+            // todo
         } else {
-            replaceStringInFileSync(tasksPath, /<OSX_ARDUINO>/g, arduinoPath);
+            // todo
         }
         replaceStringInFileSync(tasksPath, /<BOARD>/g, obj.board);
         replaceStringInFileSync(tasksPath, /<PORT>/g, obj.port);
+        replaceStringInFileSync(tasksPath, /<SPEED>/g, obj.speed);
     }
 });
 
